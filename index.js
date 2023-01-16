@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const userRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
 
 dotenv.config();
 mongoose.set('strictQuery', false);
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use(morgan("common"));
 
 app.use("/api/users",userRoute);
+app.use("/api/auth",authRoute);
 
 app.get("/",(req,res)=>{
   res.send("<H2>Welcome ...!!</H2>")
