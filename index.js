@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const userRoute = require("./routes/users");
 
 dotenv.config();
 mongoose.set('strictQuery', false);
@@ -17,6 +18,8 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+
+app.use("/api/users",userRoute);
 
 app.get("/",(req,res)=>{
   res.send("<H2>Welcome ...!!</H2>")
