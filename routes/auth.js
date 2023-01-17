@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const User = require("../models/User");
 
-module.exports  = router;
 
 router.post("/register",async (req,res)=>{
  
@@ -21,3 +20,16 @@ router.post("/register",async (req,res)=>{
     console.log("Error when registering user"+err);
    }
   });
+
+  router.post("/login",async (req,res)=>{
+    try{
+      console.log(req.body.email);
+      const user = await User.findOne({"email": req.body.email});
+      user ? res.json(user) : res.status(404).json("User not found"); 
+    }
+    catch(err){
+      console.log(err);
+    }
+  });
+
+module.exports  = router;
