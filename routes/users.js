@@ -8,6 +8,18 @@ router.get("/",(req,res)=>{
   res.send("users")
 });
 
+router.get("/:id",async (req,res)=>{
+
+  try{
+    const user = await User.findById(req.params.id);
+    const {password,createdAt,updatedAt,__v,...other} = user._doc;
+    res.json(other);
+  }
+  catch(err){
+    res.status(500).json(err);
+  }
+});
+
 router.put("/:id",async (req,res)=>{
    if(req.body.userId === req.params.id || req.body.isAdmin){
      if(req.body.password){
