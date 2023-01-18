@@ -34,6 +34,12 @@ router.put("/:id",async (req,res)=>{
 
   router.delete("/:id",async (req,res) =>{
     try{
+       
+        if(!req.body.userId){
+          res.status(400).json('No user id provided');
+          return;
+        }
+
         if(req.params.id === req.body.userId || req.body.isAdmin){
           await User.findByIdAndDelete(req.params.id);
           res.json("Account deleted successfully")
