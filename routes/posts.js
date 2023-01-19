@@ -84,5 +84,16 @@ catch(err){
 }
 });
 
+router.get("/:id",async (req,res) =>{
+
+try{
+   const post = await Post.findById(req.params.id);  
+   res.json(post);
+}
+catch(err){
+  res.status(500).json(err);
+}
+
+});
 
 module.exports = router;
