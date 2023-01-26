@@ -11,7 +11,7 @@ router.get("/",(req,res)=>{
 router.get("/:id",async (req,res)=>{
 
   try{
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.context.params.id);
     const {password,createdAt,updatedAt,__v,...other} = user._doc;
     res.json(other);
   }
@@ -21,11 +21,11 @@ router.get("/:id",async (req,res)=>{
 });
 
 router.put("/:id",async (req,res)=>{
-   if(req.body.userId === req.params.id || req.body.isAdmin){
-     if(req.body.password){
+   if(req.context.body.userId === req.context.params.id || req.context.body.isAdmin){
+     if(req.context.body.password){
       try{
         const salt = await bcrpyt.genSalt(10);
-        req.body.password = await bcrpyt.hash(req.body.password,salt);
+        req.context.body.password = await bcrpyt.hash(req.context.body.password,salt);
       } 
       catch(err){
         return res.status(500).json(err);
@@ -33,7 +33,7 @@ router.put("/:id",async (req,res)=>{
      }
 
      try{
-        const user = await User.findByIdAndUpdate(req.params.id,{$set : req.body});
+        const user = await User.findByIdAndUpdate(req.context.params.id,{$set : req.context.body});
         res.json("Account updated");
      }
      catch(err){
@@ -47,13 +47,13 @@ router.put("/:id",async (req,res)=>{
   router.delete("/:id",async (req,res) =>{
     try{
        
-        if(!req.body.userId){
+        if(!req.context.body.userId){
           res.status(400).json('No user id provided');
           return;
         }
 
-        if(req.params.id === req.body.userId || req.body.isAdmin){
-          await User.findByIdAndDelete(req.params.id);
+        if(req.context.params.id === req.context.body.userId || req.context.body.isAdmin){
+          await User.findByIdAndDelete(req.context.params.id);
           res.json("Account deleted successfully")
         }
         else{
@@ -67,15 +67,15 @@ router.put("/:id",async (req,res)=>{
 
   router.put("/:id/follow",async (req,res) =>{
 
-    if(req.params.id !== req.body.userId){
+    if(req.context.params.id !== req.context.body.userId){
       try{
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
-        if(user.followers.includes(req.body.userId))
+        const user = await User.findById(req.context.params.id);
+        const currentUser = await User.findById(req.context.body.userId);
+        if(user.followers.includes(req.context.body.userId))
           res.status(403).json("You already follow this user");
         else{
-            await user.updateOne({$push:{followers:req.body.userId}});
-            await currentUser.updateOne({$push:{following:req.params.id}});
+            await user.updateOne({$push:{followers:req.context.body.userId}});
+            await currentUser.updateOne({$push:{following:req.context.params.id}});
             res.json("User is being followed");
         }
       }
@@ -91,15 +91,15 @@ router.put("/:id",async (req,res)=>{
 
   router.put("/:id/unfollow",async (req,res) =>{
 
-    if(req.params.id !== req.body.userId){
+    if(req.context.params.id !== req.context.body.userId){
       try{
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
-        if(!user.followers.includes(req.body.userId))
+        const user = await User.findById(req.context.params.id);
+        const currentUser = await User.findById(req.context.body.userId);
+        if(!user.followers.includes(req.context.body.userId))
           res.status(403).json("You dont follow this user");
         else{
-            await user.updateOne({$pull:{followers:req.body.userId}});
-            await currentUser.updateOne({$pull:{following:req.params.id}});
+            await user.updateOne({$pull:{followers:req.context.body.userId}});
+            await currentUser.updateOne({$pull:{following:req.context.params.id}});
             res.json("User has been unfollowed");
         }
       }

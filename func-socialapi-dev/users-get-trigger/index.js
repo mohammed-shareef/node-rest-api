@@ -1,4 +1,5 @@
-const express = require("express");
+const createHandler = require("azure-function-express").createHandler;
+const express = require("@azure/function");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -28,7 +29,7 @@ app.use("/api/posts",postRoute);
 app.get("/",(req,res)=>{
   res.send("<H2>Welcome ...!!</H2>")
 });
+ 
 
-app.listen(8800, ()=>{
-  console.log('Backend server is running.!!');
-});
+// Binds the express app to an Azure Function handler
+module.exports = createHandler(app);
