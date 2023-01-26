@@ -5,6 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
+      "route": "auth",
       "methods": [
         "post"
       ]
@@ -14,5 +15,6 @@
       "direction": "out",
       "name": "res"
     }
-  ]
+  ],
+  "scriptFile": "../dist/auth-post-trigger/index.js"
 }
