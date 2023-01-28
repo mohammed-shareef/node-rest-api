@@ -27,7 +27,7 @@ module.exports = async function (context, req) {
          return;
        }
        
-       res.json(user);
+       context.res = {body : user};
  
      }
      catch(err){
