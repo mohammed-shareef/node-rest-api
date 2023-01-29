@@ -1,11 +1,13 @@
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 module.exports = async function (context, req) {
    
     if(req.body.userId === req.params.id || req.body.isAdmin){
 
         if(req.body.password){
-           const salt = await bcrpyt.genSalt(10);
-           req.body.password = await bcrpyt.hash(req.body.password,salt);
+           const salt = await bcrypt.genSalt(10);
+           req.body.password = await bcrypt.hash(req.body.password,salt);
          }
    
         try{
