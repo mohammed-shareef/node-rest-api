@@ -4,7 +4,7 @@ module.exports = async function (context, req) {
 
     if(req.params.id !== req.body.userId){
         try{
-          const user = await User.findById(req.params.id);
+          const user = await User.findById(req.params.currentUserId);
           const currentUser = await User.findById(req.body.userId);
           if(user.followers.includes(req.body.userId))
             context.res = {
@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
             }
           else{
               await user.updateOne({$push:{followers:req.body.userId}});
-              await currentUser.updateOne({$push:{following:req.params.id}});
+              await currentUser.updateOne({$push:{following:req.params.currentUserId}});
               context.res = {
                 body: "User is being followed"
               }
