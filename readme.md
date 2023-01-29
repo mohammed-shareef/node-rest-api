@@ -1,17 +1,14 @@
 
 ### Building a Social REST API using the MERN Stack
- The code in this repository is being  built to learn the MERN stack using the excellent project guidance provided by Lama dev 
- which can be found here https://www.youtube.com/watch?v=ldGl6L4Vktk
+ The code in this repository is being  built to learn the MERN stack using the excellent video on youtube [Node.js Social Media REST API with MongoDb](https://www.youtube.com/watch?v=ldGl6L4Vktk) provided by Lama dev. The source repo can be found here https://github.com/safak/youtube/tree/social-rest-api
 
  As Azure Functions have been chosen for hosting the API the code base is divided into three branches
  
- The **master** branch holds the code for using express as the server
- **azure_function_express** contains code which is an attempt to run the express codebase on an Azure Function
+ The **master** branch holds the code for using express as the server. The 
+ **azure_function_express** branch contains code which is an attempt to run the express codebase on an Azure Function
  & the **azure_function** branch contains the code base which is a working copy of the API running on an Azure Function.
  
- The inspiration for moving this entirely to an Azure function comes from John Papa's excellent video on youtube [Refactor Node.js & Express API's to serverless](https://youtu.be/R6Oy5NzjtE0?t=2630). PS : This video is based on typescript though
-
-Original source code  - https://github.com/safak/youtube/tree/social-rest-api 
+ The inspiration for moving this entirely to an Azure function comes from John Papa's excellent video on youtube [Refactor Node.js & Express API's to serverless](https://youtu.be/R6Oy5NzjtE0?t=2630). PS : This video is based on typescript though & the source repo can be found here https://github.com/johnpapa/express-to-functions
 
 ##### Follow the commands below to create and initialise a nodejs project
 
