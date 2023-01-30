@@ -41,4 +41,4 @@ jobs:
           app-name: 'func-socialapi-dev'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EF13A20DE5C84182B8E06B4E7446B019 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD2C878813404479BF5CF6D393DD251A }}
