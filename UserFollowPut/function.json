@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "followuser/{id}",
+      "route": "users/{id}/follow",
       "methods": [
         "put"
       ]
