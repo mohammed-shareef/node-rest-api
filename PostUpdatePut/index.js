@@ -4,25 +4,34 @@ const Post = require("../models/Post");
 module.exports = async function (context, req) {
    
     try{
-        const post = await Post.findById(req.params.id);
+        const post = await Post.findById(req.context.params.id);
     
-        if(!post.likes.includes(req.body.userId)){
-            await post.updateOne({$push:{likes:req.body.userId}});
+        if(!post){
             context.res = {
-                body : "the post has been liked"
+                status : 404,
+                body : "the post is not found"
             };
+            return;
         }
-        else {
-           await post.updateOne({$pull:{likes:req.body.userId}});
-           context.res = {
-            body : "the post has been disliked"
-           };
+    
+        if(req.context.body.userId !== post.userId){
+            context.res = {
+                status : 403,
+                body : "you can only update your own posts"
+            };
+            return;
         }
-    }
-    catch(err){
+        else{
+          await post.updateOne({$set : req.context.body});
+          context.res = {
+            body : "updated post successfully"
+          };
+        }
+      }
+      catch(err){
         context.res = {
             status : 500,
             body : 'Could not update post - '+err
-       }
-    }  
+      }
+    }
 }
