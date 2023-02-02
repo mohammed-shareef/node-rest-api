@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "posts/timeline/all",
+      "route": "posts/timeline/{userId}/all",
       "methods": [
         "get"
       ]

@@ -4,7 +4,7 @@ const Post = require("../models/Post");
 
 module.exports = async function (context, req) {
     try{
-        const currentUser = await User.findById(req.body.userId);
+        const currentUser = await User.findById(req.params.userId);
         const userPosts = await Post.find({userId : currentUser._id});
         const friendPosts = await Promise.all(
          currentUser.following.map(friendId =>{
