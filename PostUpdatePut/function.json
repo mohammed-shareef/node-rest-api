@@ -5,9 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
+      "route": "posts/{id}",
       "methods": [
-        "get",
-        "post"
+        "put"
       ]
     },
     {
